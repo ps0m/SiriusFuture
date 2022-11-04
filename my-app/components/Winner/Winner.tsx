@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import { FC, MouseEvent, useContext } from 'react';
-import { MyContext } from '../../context';
-import { OrderSort } from '../../types/types';
+import { FC } from 'react';
 import Button from '../Button/Button';
 
 const WinnerStyled = styled.div`
@@ -57,13 +55,6 @@ const Text = styled.div`
 `;
 
 export const Winner: FC = () => {
-  const { setNumberItems, setValueItems, setOrderSort } = useContext(MyContext);
-
-  const resetSettings = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setNumberItems(0), setValueItems(0), setOrderSort(OrderSort.incr);
-  };
-
   return (
     <WinnerStyled>
       <Title>
@@ -76,7 +67,7 @@ export const Winner: FC = () => {
           <Button
             big
             green
-            onClick={resetSettings}
+            onClick={() => ''}
             dynamicStyle="font-family: 'Circe Rounded'; background:#2BD600"
           >
             Заново
