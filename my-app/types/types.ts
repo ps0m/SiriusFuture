@@ -20,6 +20,11 @@ export enum OrderSort {
   'decr' = 'decr',
 }
 
+export type numbersForTheme = {
+  numberOfTheme: number;
+  index: number;
+};
+
 export type IContextType = {
   numberItems: number;
   setNumberItems: Dispatch<SetStateAction<number>>;
@@ -27,4 +32,6 @@ export type IContextType = {
   setValueItems: Dispatch<SetStateAction<number>>;
   orderSort: OrderSort;
   setOrderSort: Dispatch<SetStateAction<OrderSort>>;
+  numberOfTheme: number;
+  setNumberOfTheme: Dispatch<SetStateAction<number>>;
 };

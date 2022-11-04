@@ -14,9 +14,5 @@ export const getRandomList = (min: number, max: number, quantity: number) => {
   return result;
 };
 
-// for (let i = 0; i < 5; i++) {
-//   const randomList = getRandomList(10, 19, 5);
-//   const sortList = [...randomList].sort((a, b) => a - b);
-
-//   console.log(randomList, sortList);
-// }
+export const getRandomNumber = (min: number, max: number) =>
+  Math.floor(Math.random() * (max - min) + min);

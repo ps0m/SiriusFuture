@@ -1,59 +1,52 @@
 import styled from '@emotion/styled';
-import { DragEvent, FC, ReactNode } from 'react';
-import { KeyValueType } from '../../types/types';
+import { DragEvent, FC, ReactNode, useContext } from 'react';
+import { MyContext } from '../../context';
+import { KeyValueType, numbersForTheme } from '../../types/types';
 
-const ChipStyle = styled.div`
+const ChipStyle = styled.div<numbersForTheme>`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 158px;
   height: 158px;
-  background: url(/for_game/chips/set_1/chip_1.svg) 0 0 /100% 100% no-repeat;
+  ${(props) => `
+  background: url(/for_game/set_${props.numberOfTheme}/chips/chip_${props.index}.svg) 0 0 /100% 100% no-repeat;
+  `}
   &:nth-of-type(2n) {
     align-self: flex-start;
   }
-  /* &:nth-of-type(3n) {
-    align-self: flex-end;
-  } */
 `;
 
 type ChipPropsType = {
-  item: KeyValueType;
-  place: string;
+  value: KeyValueType;
+  setCurrent?: (newItem: KeyValueType) => void;
   children?: ReactNode;
+  index: number;
 };
 
-const Chip: FC<ChipPropsType> = ({ item, place, children }) => {
-  const dragOverHandler = (e: DragEvent<HTMLDivElement>, item: KeyValueType): void => {
-    e.preventDefault();
-  };
+const Chip: FC<ChipPropsType> = ({ value, setCurrent, children, index }) => {
+  const { numberOfTheme } = useContext(MyContext);
 
-  const dragLeaveHandler = (e: DragEvent<HTMLDivElement>): void => {
-    e.preventDefault();
-  };
-
-  const dragStartHandler = (e: DragEvent<HTMLDivElement>): void => {
-    e.preventDefault();
-  };
-
-  const dragEndHandler = (e: DragEvent<HTMLDivElement>): void => {
-    e.preventDefault();
-  };
-
-  const dropHandler = (e: DragEvent<HTMLDivElement>, item: KeyValueType): void => {
-    e.preventDefault();
+  const dragStartHandler = (e: DragEvent<HTMLDivElement>, value: KeyValueType): void => {
+    if (!setCurrent) {
+      return;
+    }
+    const img = new Image();
+    img.src = `/for_game/set_${numberOfTheme}/chips/chip_${index}.svg`;
+    e.dataTransfer.setDragImage(img, 70, 70);
+    setCurrent(value);
   };
 
   return (
     <ChipStyle
-      key={item}
+      key={value}
       draggable
-      onDragOver={(e) => dragOverHandler(e, item)}
-      onDragLeave={(e) => dragLeaveHandler(e)}
-      onDragStart={(e) => dragStartHandler(e)}
-      onDragEnd={(e) => dragEndHandler(e)}
-      onDrop={(e) => dropHandler(e, item)}
-    ></ChipStyle>
+      onDragStart={(e) => dragStartHandler(e, value)}
+      numberOfTheme={numberOfTheme}
+      index={index}
+    >
+      {children}
+    </ChipStyle>
   );
 };
 

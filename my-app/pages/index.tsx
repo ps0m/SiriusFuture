@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
+import Link from 'next/link';
 import { MouseEvent, useContext, useRef, useState } from 'react';
 import Button from '../components/Button/Button';
 import Input from '../components/Input/Input';
 import { MyContext } from '../context';
 import { ARRAY_NUMBER, ARRAY_VALUES } from '../helpers/constants';
+import { getRandomNumber } from '../helpers/helpers';
 import { OrderSort } from '../types/types';
 
 const Section = styled.section`
@@ -14,6 +16,7 @@ const Section = styled.section`
   height: 100%;
   background: url(/background_settings.jpg) 0 0 / cover no-repeat;
 `;
+
 const Card = styled.div`
   width: 700px;
   height: 660px;
@@ -56,7 +59,7 @@ const Home = () => {
   const values = useRef(0);
   const [order, setOrder] = useState(OrderSort.incr);
 
-  const { setNumberItems, setValueItems, setOrderSort } = useContext(MyContext);
+  const { setNumberItems, setValueItems, setOrderSort, setNumberOfTheme } = useContext(MyContext);
 
   const setNumber = (value: string) => {
     number.current = +value;
@@ -84,6 +87,7 @@ const Home = () => {
     setNumberItems(number.current);
     setValueItems(values.current);
     setOrderSort(order);
+    setNumberOfTheme(getRandomNumber(1, 4));
   };
 
   return (
@@ -114,10 +118,11 @@ const Home = () => {
             По убыванию
           </Button>
         </ButtonGroup>
-
-        <Button onClick={setParametersGame} big green>
-          Играть
-        </Button>
+        <Link href="/game">
+          <Button onClick={setParametersGame} big green>
+            Играть
+          </Button>
+        </Link>
       </Card>
     </Section>
   );

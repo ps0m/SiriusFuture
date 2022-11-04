@@ -8,12 +8,22 @@ const App = ({ Component, pageProps }: AppProps) => {
   const [numberItems, setNumberItems] = useState<number>(0);
   const [valueItems, setValueItems] = useState<number>(0);
   const [orderSort, setOrderSort] = useState<OrderSort>(OrderSort.incr);
+  const [numberOfTheme, setNumberOfTheme] = useState<number>(1);
 
   return (
     <MyContext.Provider
-      value={{ numberItems, setNumberItems, valueItems, setValueItems, orderSort, setOrderSort }}
+      value={{
+        numberItems,
+        setNumberItems,
+        valueItems,
+        setValueItems,
+        orderSort,
+        setOrderSort,
+        numberOfTheme,
+        setNumberOfTheme,
+      }}
     >
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </MyContext.Provider>
   );
 };

@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { ChangeEvent } from 'react';
+import { KeyValueType } from '../../types/types';
 
 type InputProps = {
   id: string;
   onChange: (e: string) => void;
-  content: string[] | number[];
+  content: KeyValueType[];
   title?: string;
   dynamicStyle?: string;
 };
