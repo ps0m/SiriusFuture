@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 import { FC, MouseEvent, useContext } from 'react';
 import { MyContext } from '../../context';
+import { OrderSort } from '../../types/types';
 import Button from '../Button/Button';
 
 const WinnerStyled = styled.div`
@@ -59,7 +60,8 @@ export const Winner: FC = () => {
   const { setNumberItems, setValueItems, setOrderSort } = useContext(MyContext);
 
   const resetSettings = (e: MouseEvent<HTMLButtonElement>) => {
-    setNumberItems(0), setValueItems(0), setOrderSort('');
+    e.preventDefault();
+    setNumberItems(0), setValueItems(0), setOrderSort(OrderSort.incr);
   };
 
   return (
